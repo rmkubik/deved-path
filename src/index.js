@@ -196,8 +196,8 @@ function create() {
     }
   });
 
-  // player = this.physics.add.sprite(50, 20, "elfIdle1");
-  player = this.physics.add.sprite(250, 200, "elfIdle1");
+  player = this.physics.add.sprite(50, 20, "elfIdle1"); // spawn at entrance
+  // player = this.physics.add.sprite(250, 200, "elfIdle1"); // spawn at heart
   player.setOrigin(0.5, 1);
   player.setCollideWorldBounds(true);
 
@@ -255,15 +255,6 @@ function create() {
 const RUN_SPEED = 150;
 function update() {
   player.setVelocity(0);
-
-  // const overlappedChest = chests.find(chest =>
-  //   this.physics.overlap(player, chest)
-  // );
-  // if (overlappedChest) {
-  //   chestOverlapState.action("enter", overlappedChest);
-  // } else {
-  //   chestOverlapState.action("exit", overlappedChest);
-  // }
 
   chests.forEach(chest => {
     if (this.physics.overlap(player, chest)) {
