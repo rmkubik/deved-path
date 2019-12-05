@@ -20,9 +20,16 @@ import mapImage from "../assets/map.png";
 import chestEmpty1 from "../assets/frames/chest_empty_open_anim_f0.png";
 import chestEmpty2 from "../assets/frames/chest_empty_open_anim_f1.png";
 import chestEmpty3 from "../assets/frames/chest_empty_open_anim_f2.png";
+import fountainBottom1 from "../assets/frames/wall_fountain_basin_blue_anim_f0.png";
+import fountainBottom2 from "../assets/frames/wall_fountain_basin_blue_anim_f1.png";
+import fountainBottom3 from "../assets/frames/wall_fountain_basin_blue_anim_f2.png";
+import fountainTop1 from "../assets/frames/wall_fountain_mid_blue_anim_f0.png";
+import fountainTop2 from "../assets/frames/wall_fountain_mid_blue_anim_f1.png";
+import fountainTop3 from "../assets/frames/wall_fountain_mid_blue_anim_f2.png";
 
 import UI from "./components/UI.js";
 import FSM from "./components/FSM";
+import createChest from "./factories/createChest";
 
 import "./styles/main.scss";
 
@@ -31,14 +38,6 @@ WebFont.load({
     families: ["Press Start 2P", "Roboto", "Roboto:bold"]
   }
 });
-
-function getTiledProp(obj, prop) {
-  return (
-    obj &&
-    obj.properties &&
-    obj.properties.find(property => property.name === prop).value
-  );
-}
 
 const config = {
   type: Phaser.AUTO,
@@ -116,6 +115,12 @@ function preload() {
   this.load.image("chestEmpty1", chestEmpty1);
   this.load.image("chestEmpty2", chestEmpty2);
   this.load.image("chestEmpty3", chestEmpty3);
+  this.load.image("fountainBottom1", fountainBottom1);
+  this.load.image("fountainBottom2", fountainBottom2);
+  this.load.image("fountainBottom3", fountainBottom3);
+  this.load.image("fountainTop1", fountainTop1);
+  this.load.image("fountainTop2", fountainTop2);
+  this.load.image("fountainTop3", fountainTop3);
 }
 
 function create() {
@@ -130,74 +135,9 @@ function create() {
 
   const chestLayer = map.layers.find(layer => layer.name === "objects");
   chestLayer.objects.forEach(object => {
-    const chest = this.physics.add.sprite(object.x, object.y, "chestEmpty1");
-    chest.setOrigin(0, 1);
-    chest.tiledProps = {};
-    chest.tiledProps.key = getTiledProp(object, "key") || "";
-    chest.fsm = new FSM(
-      {
-        overlapped: {
-          actions: {
-            exit: () => {
-              chest.fsm.transition("notOverlapped");
-            }
-          },
-          onEnter: () => {
-            this.tweens.add({
-              targets: chest,
-              scaleX: 1.2,
-              scaleY: 1.2,
-              ease: "Power1",
-              duration: 100
-            });
-          }
-        },
-        notOverlapped: {
-          actions: {
-            enter: () => {
-              chest.fsm.transition("overlapped");
-            }
-          },
-          onEnter: () => {
-            this.tweens.add({
-              targets: chest,
-              scaleX: 1,
-              scaleY: 1,
-              ease: "Power1",
-              duration: 100
-            });
-          }
-        }
-      },
-      "notOverlapped"
-    );
-    chest.opened = new FSM(
-      {
-        opened: {
-          actions: {
-            open: () => chestOverlapState.action("enter", chest)
-          },
-          onEnter: () => {
-            chest.anims.play("chestOpen");
-          }
-        },
-        closed: {
-          actions: {
-            open: () => {
-              chest.opened.transition("opened");
-            }
-          }
-        }
-      },
-      "closed"
-    );
-    chest.on("animationcomplete", animation => {
-      console.log(animation);
-      if (animation.key === "chestOpen") {
-        chestOverlapState.action("enter", chest);
-      }
-    });
-    chests.push(chest);
+    if (object.type === "chest") {
+      chests.push(createChest(this, object, chestOverlapState));
+    }
   });
 
   colliders = this.physics.add.group();
