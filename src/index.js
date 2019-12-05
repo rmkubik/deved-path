@@ -30,6 +30,7 @@ import fountainTop3 from "../assets/frames/wall_fountain_mid_blue_anim_f2.png";
 import UI from "./components/UI.js";
 import FSM from "./components/FSM";
 import createChest from "./factories/createChest";
+import createFountain from "./factories/createFountain";
 
 import "./styles/main.scss";
 
@@ -133,10 +134,40 @@ function create() {
     frameRate: 7
   });
 
+  this.anims.create({
+    key: "fountainTopRun",
+    frames: [
+      { key: "fountainTop1" },
+      { key: "fountainTop2" },
+      { key: "fountainTop3" }
+    ],
+    frameRate: 8
+  });
+
+  this.anims.create({
+    key: "fountainBottomRun",
+    frames: [
+      { key: "fountainBottom1" },
+      { key: "fountainBottom2" },
+      { key: "fountainBottom3" }
+    ],
+    frameRate: 8
+  });
+
   const chestLayer = map.layers.find(layer => layer.name === "objects");
   chestLayer.objects.forEach(object => {
     if (object.type === "chest") {
       chests.push(createChest(this, object, chestOverlapState));
+    }
+
+    switch (object.type) {
+      case "chest":
+        chests.push(createChest(this, object, chestOverlapState));
+        break;
+      case "fountainTop":
+      case "fountainBottom":
+        createFountain(this, object);
+        break;
     }
   });
 
