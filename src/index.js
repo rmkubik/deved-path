@@ -128,7 +128,7 @@ function create() {
     frameRate: 7
   });
 
-  const chestLayer = map.layers.find(layer => layer.name === "chests");
+  const chestLayer = map.layers.find(layer => layer.name === "objects");
   chestLayer.objects.forEach(object => {
     const chest = this.physics.add.sprite(object.x, object.y, "chestEmpty1");
     chest.setOrigin(0, 1);

@@ -28,7 +28,7 @@
         {
          "draworder":"topdown",
          "id":10,
-         "name":"chests",
+         "name":"objects",
          "objects":[
                 {
                  "gid":17,
