@@ -123,6 +123,43 @@ function create() {
     chest.setOrigin(0, 1);
     chest.tiledProps = {};
     chest.tiledProps.key = getTiledProp(object, "key") || "";
+    chest.fsm = new FSM(
+      {
+        overlapped: {
+          actions: {
+            exit: () => {
+              chest.fsm.transition("notOverlapped");
+            }
+          },
+          onEnter: () => {
+            this.tweens.add({
+              targets: chest,
+              scaleX: 1.2,
+              scaleY: 1.2,
+              ease: "Power1",
+              duration: 100
+            });
+          }
+        },
+        notOverlapped: {
+          actions: {
+            enter: () => {
+              chest.fsm.transition("overlapped");
+            }
+          },
+          onEnter: () => {
+            this.tweens.add({
+              targets: chest,
+              scaleX: 1,
+              scaleY: 1,
+              ease: "Power1",
+              duration: 100
+            });
+          }
+        }
+      },
+      "notOverlapped"
+    );
     chests.push(chest);
   });
 
@@ -206,6 +243,14 @@ function update() {
   // } else {
   //   chestOverlapState.action("exit", overlappedChest);
   // }
+
+  chests.forEach(chest => {
+    if (this.physics.overlap(player, chest)) {
+      chest.fsm.action("enter");
+    } else {
+      chest.fsm.action("exit");
+    }
+  });
 
   this.physics.collide(player, colliders);
 
