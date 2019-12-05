@@ -23,7 +23,7 @@ const UI = ({ events, chestOverlapState }) => {
       <ReactModal
         isOpen={isModalOpen}
         ariaHideApp={false}
-        className="modal"
+        className="modal animated slideInUp faster"
         overlayClassName="modal-overlay"
       >
         <>

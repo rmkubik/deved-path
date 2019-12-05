@@ -3,6 +3,7 @@ import React from "react";
 import Phaser from "phaser";
 import EventEmitter from "event-emitter";
 import WebFont from "webfontloader";
+import "animate.css";
 
 import spritesheet from "../assets/player_tilesheet.png";
 import elfHit from "../assets/frames/elf_m_hit_anim_f0.png";
