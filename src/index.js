@@ -54,6 +54,7 @@ const config = {
 const events = new EventEmitter();
 const game = new Phaser.Game(config);
 
+let interactKey;
 let player;
 let cursors;
 let chests = [];
@@ -80,7 +81,10 @@ const chestOverlapState = new FSM(
 );
 let colliders;
 
-ReactDOM.render(<UI events={events} />, document.getElementById("ui"));
+ReactDOM.render(
+  <UI events={events} chestOverlapState={chestOverlapState} />,
+  document.getElementById("ui")
+);
 
 function preload() {
   this.load.spritesheet("sprites", spritesheet, {
@@ -163,20 +167,36 @@ function create() {
   this.anims.create(config);
 
   cursors = this.input.keyboard.createCursorKeys();
+
+  interactKey = this.input.keyboard.addKey("space");
+  interactKey.on("down", event => {
+    const overlappedChest = chests.find(chest =>
+      this.physics.overlap(player, chest)
+    );
+
+    if (chestOverlapState.currentState === "overlapped") {
+      chestOverlapState.action("exit");
+      return;
+    }
+
+    if (overlappedChest) {
+      chestOverlapState.action("enter", overlappedChest);
+    }
+  });
 }
 
 const RUN_SPEED = 150;
 function update() {
   player.setVelocity(0);
 
-  const overlappedChest = chests.find(chest =>
-    this.physics.overlap(player, chest)
-  );
-  if (overlappedChest) {
-    chestOverlapState.action("enter", overlappedChest);
-  } else {
-    chestOverlapState.action("exit", overlappedChest);
-  }
+  // const overlappedChest = chests.find(chest =>
+  //   this.physics.overlap(player, chest)
+  // );
+  // if (overlappedChest) {
+  //   chestOverlapState.action("enter", overlappedChest);
+  // } else {
+  //   chestOverlapState.action("exit", overlappedChest);
+  // }
 
   this.physics.collide(player, colliders);
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactModal from "react-modal";
 import chests from "./chests";
 
-const UI = ({ events }) => {
+const UI = ({ events, chestOverlapState }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [chestKey, setChestKey] = useState("");
 
@@ -12,7 +12,7 @@ const UI = ({ events }) => {
       setChestKey(chest.tiledProps.key);
     });
 
-    events.on("chest:overlapped:false", key => {
+    events.on("chest:overlapped:false", () => {
       setModalOpen(false);
     });
   }, []);
@@ -25,7 +25,7 @@ const UI = ({ events }) => {
           {chestKey && chests[chestKey]}
           <button
             onClick={() => {
-              setModalOpen(false);
+              chestOverlapState.action("exit");
             }}
           >
             Close Modal
