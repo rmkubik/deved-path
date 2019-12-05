@@ -17,7 +17,9 @@ import elfRun3 from "../assets/frames/elf_m_run_anim_f2.png";
 import elfRun4 from "../assets/frames/elf_m_run_anim_f3.png";
 import map from "../assets/map.json";
 import mapImage from "../assets/map.png";
-import chestClosed from "../assets/frames/chest_full_open_anim_f0.png";
+import chestEmpty1 from "../assets/frames/chest_empty_open_anim_f0.png";
+import chestEmpty2 from "../assets/frames/chest_empty_open_anim_f1.png";
+import chestEmpty3 from "../assets/frames/chest_empty_open_anim_f2.png";
 
 import UI from "./components/UI.js";
 import FSM from "./components/FSM";
@@ -72,8 +74,8 @@ const chestOverlapState = new FSM(
   {
     overlapped: {
       actions: {
-        exit: chest => {
-          events.emit("chest:overlapped:false", chest);
+        exit: () => {
+          events.emit("chest:overlapped:false");
           chestOverlapState.transition("notOverlapped");
         }
       }
@@ -111,16 +113,24 @@ function preload() {
   this.load.image("elfRun3", elfRun3);
   this.load.image("elfRun4", elfRun4);
   this.load.image("mapImage", mapImage);
-  this.load.image("chestClosed", chestClosed);
+  this.load.image("chestEmpty1", chestEmpty1);
+  this.load.image("chestEmpty2", chestEmpty2);
+  this.load.image("chestEmpty3", chestEmpty3);
 }
 
 function create() {
   this.mapImage = this.add.image(0, 0, "mapImage");
   this.mapImage.setOrigin(0, 0);
 
+  this.anims.create({
+    key: "chestOpen",
+    frames: [{ key: "chestEmpty2" }, { key: "chestEmpty3" }],
+    frameRate: 7
+  });
+
   const chestLayer = map.layers.find(layer => layer.name === "chests");
   chestLayer.objects.forEach(object => {
-    const chest = this.physics.add.sprite(object.x, object.y, "chestClosed");
+    const chest = this.physics.add.sprite(object.x, object.y, "chestEmpty1");
     chest.setOrigin(0, 1);
     chest.tiledProps = {};
     chest.tiledProps.key = getTiledProp(object, "key") || "";
@@ -161,6 +171,32 @@ function create() {
       },
       "notOverlapped"
     );
+    chest.opened = new FSM(
+      {
+        opened: {
+          actions: {
+            open: () => chestOverlapState.action("enter", chest)
+          },
+          onEnter: () => {
+            chest.anims.play("chestOpen");
+          }
+        },
+        closed: {
+          actions: {
+            open: () => {
+              chest.opened.transition("opened");
+            }
+          }
+        }
+      },
+      "closed"
+    );
+    chest.on("animationcomplete", animation => {
+      console.log(animation);
+      if (animation.key === "chestOpen") {
+        chestOverlapState.action("enter", chest);
+      }
+    });
     chests.push(chest);
   });
 
@@ -173,7 +209,7 @@ function create() {
       const collider = this.physics.add.sprite(
         row * 16,
         col * 16,
-        "chestClosed"
+        "chestEmpty1"
       );
       collider.setOrigin(0, 0);
       collider.body.immovable = true;
@@ -187,7 +223,7 @@ function create() {
   player.setOrigin(0.5, 1);
   player.setCollideWorldBounds(true);
 
-  var config = {
+  this.anims.create({
     key: "walk",
     frames: [
       { key: "elfRun1" },
@@ -196,11 +232,9 @@ function create() {
       { key: "elfRun4" }
     ],
     frameRate: 8
-  };
+  });
 
-  this.anims.create(config);
-
-  var config = {
+  this.anims.create({
     key: "idle",
     frames: [
       { key: "elfIdle1" },
@@ -209,9 +243,7 @@ function create() {
       { key: "elfIdle4" }
     ],
     frameRate: 8
-  };
-
-  this.anims.create(config);
+  });
 
   cursors = this.input.keyboard.createCursorKeys();
 
@@ -227,7 +259,7 @@ function create() {
     }
 
     if (overlappedChest) {
-      chestOverlapState.action("enter", overlappedChest);
+      overlappedChest.opened.action("open");
     }
   });
 }
