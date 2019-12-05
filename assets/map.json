@@ -233,6 +233,12 @@
                  "height":16,
                  "id":16,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"twilioQuest"
+                        }],
                  "rotation":0,
                  "type":"heart",
                  "visible":true,

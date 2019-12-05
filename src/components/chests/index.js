@@ -10,6 +10,7 @@ import Unstable from "./unstable";
 import Blogging from "./blogging";
 import Speaking from "./speaking";
 import WildfireSwap from "./wildfireSwap";
+import TwilioQuest from "./twilioQuest";
 
 export default {
   childhood: <ChildhoodGames />,
@@ -22,5 +23,6 @@ export default {
   unstable: <Unstable />,
   speaking: <Speaking />,
   blogging: <Blogging />,
-  wildfireSwap: <WildfireSwap />
+  wildfireSwap: <WildfireSwap />,
+  twilioQuest: <TwilioQuest />
 };

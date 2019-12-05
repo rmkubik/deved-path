@@ -1,3 +1,5 @@
+import getTiledProp from "./getTiledProp";
+
 function createHeart(scene, object) {
   // offsets to center heart
   const halfWidth = object.width / 2;
@@ -10,6 +12,9 @@ function createHeart(scene, object) {
   );
 
   heart.setOrigin(0.5, 0.5);
+
+  heart.tiledProps = {};
+  heart.tiledProps.key = getTiledProp(object, "key") || "";
 
   scene.tweens.add({
     targets: heart,

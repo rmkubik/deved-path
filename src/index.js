@@ -72,6 +72,7 @@ let interactKey;
 let player;
 let cursors;
 let chests = [];
+let heart;
 const chestOverlapState = new FSM(
   {
     overlapped: {
@@ -168,7 +169,7 @@ function create() {
         createFountain(this, object);
         break;
       case "heart":
-        createHeart(this, object);
+        heart = createHeart(this, object);
         break;
       default:
         console.warn("Unimplemented object type!");
@@ -195,7 +196,8 @@ function create() {
     }
   });
 
-  player = this.physics.add.sprite(50, 20, "elfIdle1");
+  // player = this.physics.add.sprite(50, 20, "elfIdle1");
+  player = this.physics.add.sprite(250, 200, "elfIdle1");
   player.setOrigin(0.5, 1);
   player.setCollideWorldBounds(true);
 
@@ -225,6 +227,16 @@ function create() {
 
   interactKey = this.input.keyboard.addKey("space");
   interactKey.on("down", event => {
+    const isHeartOverlapped = this.physics.overlap(player, heart);
+
+    if (
+      isHeartOverlapped &&
+      chestOverlapState.currentState === "notOverlapped"
+    ) {
+      chestOverlapState.action("enter", heart);
+      return;
+    }
+
     const overlappedChest = chests.find(chest =>
       this.physics.overlap(player, chest)
     );
