@@ -20,7 +20,12 @@ const UI = ({ events, chestOverlapState }) => {
   return (
     <>
       <h1>Dev Ed Path</h1>
-      <ReactModal isOpen={isModalOpen} ariaHideApp={false}>
+      <ReactModal
+        isOpen={isModalOpen}
+        ariaHideApp={false}
+        className="modal"
+        overlayClassName="modal-overlay"
+      >
         <>
           {chestKey && chests[chestKey]}
           <button

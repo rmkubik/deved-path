@@ -2,6 +2,7 @@ import ReactDOM from "react-dom";
 import React from "react";
 import Phaser from "phaser";
 import EventEmitter from "event-emitter";
+import WebFont from "webfontloader";
 
 import spritesheet from "../assets/player_tilesheet.png";
 import elfHit from "../assets/frames/elf_m_hit_anim_f0.png";
@@ -19,6 +20,14 @@ import chestClosed from "../assets/frames/chest_full_open_anim_f0.png";
 
 import UI from "./components/UI.js";
 import FSM from "./components/FSM";
+
+import "./styles/main.scss";
+
+WebFont.load({
+  google: {
+    families: ["Press Start 2P", "Roboto", "Roboto:bold"]
+  }
+});
 
 function getTiledProp(obj, prop) {
   return (
