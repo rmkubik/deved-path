@@ -2,9 +2,17 @@ import getTiledProp from "./getTiledProp";
 import FSM from "../components/FSM";
 
 function createChest(scene, object, chestOverlapState) {
-  const chest = scene.physics.add.sprite(object.x, object.y, "chestEmpty1");
+  // offsets to center chest
+  const halfWidth = object.width / 2;
+  const halfHeight = object.height / 2;
 
-  chest.setOrigin(0, 1);
+  const chest = scene.physics.add.sprite(
+    object.x + halfWidth,
+    object.y - halfHeight,
+    "chestEmpty1"
+  );
+
+  chest.setOrigin(0.5, 0.5);
 
   chest.tiledProps = {};
   chest.tiledProps.key = getTiledProp(object, "key") || "";

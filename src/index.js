@@ -26,11 +26,13 @@ import fountainBottom3 from "../assets/frames/wall_fountain_basin_blue_anim_f2.p
 import fountainTop1 from "../assets/frames/wall_fountain_mid_blue_anim_f0.png";
 import fountainTop2 from "../assets/frames/wall_fountain_mid_blue_anim_f1.png";
 import fountainTop3 from "../assets/frames/wall_fountain_mid_blue_anim_f2.png";
+import heartImage from "../assets/frames/ui_heart_full.png";
 
 import UI from "./components/UI.js";
 import FSM from "./components/FSM";
 import createChest from "./factories/createChest";
 import createFountain from "./factories/createFountain";
+import createHeart from "./factories/createHeart";
 
 import "./styles/main.scss";
 
@@ -122,6 +124,7 @@ function preload() {
   this.load.image("fountainTop1", fountainTop1);
   this.load.image("fountainTop2", fountainTop2);
   this.load.image("fountainTop3", fountainTop3);
+  this.load.image("heart", heartImage);
 }
 
 function create() {
@@ -156,10 +159,6 @@ function create() {
 
   const chestLayer = map.layers.find(layer => layer.name === "objects");
   chestLayer.objects.forEach(object => {
-    if (object.type === "chest") {
-      chests.push(createChest(this, object, chestOverlapState));
-    }
-
     switch (object.type) {
       case "chest":
         chests.push(createChest(this, object, chestOverlapState));
@@ -167,6 +166,12 @@ function create() {
       case "fountainTop":
       case "fountainBottom":
         createFountain(this, object);
+        break;
+      case "heart":
+        createHeart(this, object);
+        break;
+      default:
+        console.warn("Unimplemented object type!");
         break;
     }
   });

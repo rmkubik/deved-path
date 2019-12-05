@@ -1,6 +1,7 @@
 main {
   //   width: 100%;
   //   height: 100%;
+  max-width: 800px;
 }
 
 #ui {
@@ -20,6 +21,8 @@ button {
 }
 
 .modal {
+  max-width: 300px;
+
   border-image-source: url(../../assets/scroll.png);
   border-image-slice: 243 fill;
   border-width: 243px;
