@@ -33,7 +33,7 @@ const UI = ({ events, chestOverlapState }) => {
               chestOverlapState.action("exit");
             }}
           >
-            Close Modal
+            Close Modal (Space Bar)
           </button>
         </>
       </ReactModal>
