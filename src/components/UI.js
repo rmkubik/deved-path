@@ -28,13 +28,15 @@ const UI = ({ events, chestOverlapState }) => {
       >
         <>
           {chestKey && chests[chestKey]}
-          <button
-            onClick={() => {
+          <a
+            href=""
+            onClick={e => {
+              e.preventDefault();
               chestOverlapState.action("exit");
             }}
           >
-            Close Modal (Space Bar)
-          </button>
+            Press SPACE to close
+          </a>
         </>
       </ReactModal>
     </>

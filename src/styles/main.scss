@@ -26,7 +26,8 @@ h1 {
 
 ul,
 p,
-button {
+button,
+a {
   font-family: "Roboto";
 }
 
@@ -52,4 +53,13 @@ button {
   right: 0px;
   bottom: 0px;
   background-color: rgba(0, 0, 0, 0.75);
+}
+
+a {
+  text-decoration: underline;
+  margin-top: 40px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
