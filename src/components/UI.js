@@ -20,6 +20,7 @@ const UI = ({ events, chestOverlapState }) => {
   return (
     <>
       <h1 id="title">Becoming a Developer Educator</h1>
+      <p>Arrow Keys to move. SPACE to interact.</p>
       <ReactModal
         isOpen={isModalOpen}
         ariaHideApp={false}
