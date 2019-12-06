@@ -19,7 +19,7 @@ const UI = ({ events, chestOverlapState }) => {
 
   return (
     <>
-      <h1>Dev Ed Path</h1>
+      <h1 id="title">Becoming a Developer Educator</h1>
       <ReactModal
         isOpen={isModalOpen}
         ariaHideApp={false}
