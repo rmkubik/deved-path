@@ -3,12 +3,15 @@ import React from "react";
 const blogging = () => (
   <>
     <h1>Started Blogging</h1>
-    <p>Short Today I Learned posts in a GitHub repo</p>
-    <p>TLDR notes on articles/videos</p>
-    <hr />
-    <p>Made my own site eventually</p>
-    <p>Minimum, one post a month</p>
-    <p>Longer form articles (sometimes)</p>
+    <p>
+      I started blogging by sharing short Today I Learned posts in a GitHub
+      repo. Eventually I made my own blog site and started writing a little
+      longer posts on non-technical content too.
+    </p>
+    <p>
+      This has been one of my favorite forms of sharing and helping others learn
+      thus far.
+    </p>
   </>
 );
 

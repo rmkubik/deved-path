@@ -40,9 +40,8 @@ const Childhood = () => (
       </li>
     </ul>
     <p>
-      I spent more time thinking about new things to create and drawing them out
-      during math class than paying attention. I am still quite bad at my times
-      table.
+      Looking back, these were my first steps into making things. Especially
+      games.
     </p>
   </>
 );

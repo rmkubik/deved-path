@@ -2,15 +2,45 @@ import React from "react";
 
 const jams = () => (
   <>
-    <h1>Did A Lot Game Jams</h1>
+    <h1>I Made a lot of Game-ish Things</h1>
+    <p>I learned how to work in teams and make games.</p>
     <ul>
-      <li>{"Sweet & Spooky"}</li>
-      <li>Lobsterbotomy</li>
-      <li>Small World</li>
-      <li>Unstable</li>
-      <li>Trainsmission</li>
-      <li>Wildfire</li>
-      <li>Make for the Waves</li>
+      <li>
+        <a
+          href="https://wvugamedevelopers.itch.io/sweet-and-spooky"
+          target="_blank"
+        >
+          {"Sweet & Spooky"}
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://wvugamedevelopers.itch.io/lobsterbotomy"
+          target="_blank"
+        >
+          Lobsterbotomy
+        </a>
+      </li>
+      <li>
+        <a href="https://rmkubik.itch.io/a-social-network" target="_blank">
+          A Social Network
+        </a>
+      </li>
+      <li>
+        <a href="https://rmkubik.itch.io/unstable" target="_blank">
+          Unstable
+        </a>
+      </li>
+      <li>
+        <a href="https://rmkubik.itch.io/get-hoisted" target="_blank">
+          Get Hoisted
+        </a>
+      </li>
+      <li>
+        <a href="https://ryankubik.com/" target="_blank">
+          More stuff...
+        </a>
+      </li>
     </ul>
   </>
 );

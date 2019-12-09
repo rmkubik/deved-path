@@ -3,8 +3,15 @@ import React from "react";
 const code = () => (
   <>
     <h1>Taught at a Bootcamp</h1>
-    <p>Did an intro to programmimng/Python course</p>
-    <p>It is very hard {"&"} exhausting to teach total beginners</p>
+    <p>
+      After I moved to Portland, I started attending local meetups. One was run
+      at a bootcamp and they needed someone to teach an intro to programming
+      course.
+    </p>
+    <p>
+      I thought that I might enjoy being a teacher before this, but quickly
+      learned that being a teacher is very hard and exhausting.
+    </p>
   </>
 );
 
