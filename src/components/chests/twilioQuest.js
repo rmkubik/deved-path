@@ -7,7 +7,10 @@ const twilioQuest = () => (
       I've been making games, learning developery stuff, and searching for ways to share all of that with others.
     </p>
     <p>
-      Now, I get to apply all of those skills and ambitions to help create <a href="twilio.com/quest">TwilioQuest</a> (an educational RPG that teaches people to code) as a Developer Educator.
+      I'd be remiss to not acknowledge the privilege that gave me the security to spend my free time learning all of these skills.
+    </p>
+    <p>
+      I'm very fortunate to now be able to apply all of those skills to help create <a href="twilio.com/quest">TwilioQuest</a> (an educational RPG that teaches people to code) as a Developer Educator.
     </p>
   </>
 );
