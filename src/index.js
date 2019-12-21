@@ -68,6 +68,32 @@ const config = {
 const events = new EventEmitter();
 const game = new Phaser.Game(config);
 
+class Cursors {
+  constructor(scene) {
+    this.wKey = scene.input.keyboard.addKey('W');
+    this.aKey = scene.input.keyboard.addKey('A');
+    this.sKey = scene.input.keyboard.addKey('S');
+    this.dKey = scene.input.keyboard.addKey('D');
+    this.cursorKeys = scene.input.keyboard.createCursorKeys();
+  }
+
+  isUpPressed() {
+    return this.wKey.isDown || this.cursorKeys.up.isDown;
+  }
+
+  isDownPressed() {
+    return this.sKey.isDown || this.cursorKeys.down.isDown;
+  }
+
+  isLeftPressed() {
+    return this.aKey.isDown || this.cursorKeys.left.isDown;
+  }
+
+  isRightPressed() {
+    return this.dKey.isDown || this.cursorKeys.right.isDown;
+  }
+}
+
 let interactKey;
 let player;
 let cursors;
@@ -223,7 +249,7 @@ function create() {
     frameRate: 8
   });
 
-  cursors = this.input.keyboard.createCursorKeys();
+  cursors = new Cursors(this);
 
   interactKey = this.input.keyboard.addKey("space");
   interactKey.on("down", event => {
@@ -266,15 +292,15 @@ function update() {
 
   this.physics.collide(player, colliders);
 
-  if (cursors.left.isDown) {
+  if (cursors.isLeftPressed()) {
     player.setVelocityX(-RUN_SPEED);
-  } else if (cursors.right.isDown) {
+  } else if (cursors.isRightPressed()) {
     player.setVelocityX(RUN_SPEED);
   }
 
-  if (cursors.up.isDown) {
+  if (cursors.isUpPressed()) {
     player.setVelocityY(-RUN_SPEED);
-  } else if (cursors.down.isDown) {
+  } else if (cursors.isDownPressed()) {
     player.setVelocityY(RUN_SPEED);
   }
 

@@ -21,6 +21,18 @@ main {
   p {
     color: white;
   }
+  
+  a {
+    color: #3498db;
+
+    &:hover {
+      color: #2980b9;
+    }
+
+    &:visited {
+      color: #8e44ad;
+    }
+  }
 }
 
 h1 {
