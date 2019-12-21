@@ -10,7 +10,10 @@ const code = () => (
     </p>
     <p>
       I thought that I might enjoy being a teacher before this, but quickly
-      learned that being a teacher is very hard and exhausting.
+      learned that is very hard and exhausting.
+    </p>
+    <p>
+      I don't think a conventional classroom setting is in my future!
     </p>
   </>
 );

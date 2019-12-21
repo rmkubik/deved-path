@@ -4,8 +4,8 @@ const pigsquad = () => (
   <>
     <h1>PIGSquad Community</h1>
     <p>
-      Got involved in a new passionate community centered around game
-      development after moving to Portland.
+      Got involved in a <a href="https://pigsquad.com">new passionate community centered around game
+      development</a> after moving to Portland.
     </p>
     <p>
       I learned a lot more stuff about game development and community and made a

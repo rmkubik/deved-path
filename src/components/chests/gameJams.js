@@ -3,7 +3,7 @@ import React from "react";
 const jams = () => (
   <>
     <h1>I Made a lot of Game-ish Things</h1>
-    <p>I learned how to work in teams and make games.</p>
+    <p>I learned how to work in teams and make games by trying and failing at least a dozen times - with a success or two sprinkled in.</p>
     <ul>
       <li>
         <a

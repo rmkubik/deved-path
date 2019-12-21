@@ -4,7 +4,7 @@ const speaking = () => (
   <>
     <h1>Gave a Couple Talks</h1>
     <p>They're scary...</p>
-    <p>The second was infinitely better than the first!</p>
+    <p>The second was infinitely better than the first. Hopefully, the third will be even better!</p>
     <ul>
       <li>
         <a href="https://www.youtube.com/watch?v=kE_IvNYxcVQ" target="_blank">

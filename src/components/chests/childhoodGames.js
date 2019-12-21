@@ -3,7 +3,7 @@ import React from "react";
 const Childhood = () => (
   <>
     <h1>Childhood Games</h1>
-    <p>I played a lot of games as a kid where you could make stuff.</p>
+    <p>I played a lot of games as a kid where you could make stuff. I wish I still had those various maps, levels, and worlds now.</p>
     <ul>
       <li>
         <a
