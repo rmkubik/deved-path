@@ -9,12 +9,16 @@ main {
   margin: 0 auto;
 }
 
+#game {
+  max-height: 800px;
+}
+
 #title {
   margin-bottom: 4rem;
   color: white;
 }
 
-#ui {
+.ui {
   // width: 100%;
   // height: 100%;
 
