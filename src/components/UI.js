@@ -21,10 +21,15 @@ const UI = ({ events, chestOverlapState }) => {
     <>
       <h1 id="title">Becoming a Developer Educator</h1>
       <p>
-        This is a short autobiographical experience created by me, <a href="https://ryankubik.com">Ryan Kubik</a>.
+        This is a short autobiographical experience created by me,{" "}
+        <a href="https://ryankubik.com">Ryan Kubik</a>.
       </p>
       <p>
-        For our last team summit, we were tasked to reflect on the path that lead us to working as Developer Educators at <a href="https://www.twilio.com/">Twilio</a>. Each chest contains a clue from my past that I would end up in this bizarre and exciting role at the intersection of games, education, and code.
+        For our last team summit, we were tasked to reflect on the path that led
+        us to working as Developer Educators at{" "}
+        <a href="https://www.twilio.com/">Twilio</a>. Each chest contains a clue
+        from my past that I would end up in this bizarre and exciting role at
+        the intersection of games, education, and code.
       </p>
       <p>Arrow Keys to move. SPACE to interact.</p>
       <ReactModal
