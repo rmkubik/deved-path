@@ -38,8 +38,8 @@ import "./styles/main.scss";
 
 WebFont.load({
   google: {
-    families: ["Press Start 2P", "Roboto", "Roboto:bold"]
-  }
+    families: ["Press Start 2P", "Roboto", "Roboto:bold"],
+  },
 });
 
 const config = {
@@ -49,20 +49,21 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      debug: false
-    }
+      debug: false,
+    },
   },
   scene: {
     preload: preload,
     create: create,
-    update: update
+    update: update,
   },
   width: 480,
   height: 480,
   scale: {
-    mode: Phaser.Scale.FIT
+    mode: Phaser.Scale.FIT,
   },
-  pixelArt: true
+  pixelArt: true,
+  fullscreenTarget: "game",
 };
 
 const events = new EventEmitter();
@@ -70,10 +71,10 @@ const game = new Phaser.Game(config);
 
 class Cursors {
   constructor(scene) {
-    this.wKey = scene.input.keyboard.addKey('W');
-    this.aKey = scene.input.keyboard.addKey('A');
-    this.sKey = scene.input.keyboard.addKey('S');
-    this.dKey = scene.input.keyboard.addKey('D');
+    this.wKey = scene.input.keyboard.addKey("W");
+    this.aKey = scene.input.keyboard.addKey("A");
+    this.sKey = scene.input.keyboard.addKey("S");
+    this.dKey = scene.input.keyboard.addKey("D");
     this.cursorKeys = scene.input.keyboard.createCursorKeys();
   }
 
@@ -106,17 +107,17 @@ const chestOverlapState = new FSM(
         exit: () => {
           events.emit("chest:overlapped:false");
           chestOverlapState.transition("notOverlapped");
-        }
-      }
+        },
+      },
     },
     notOverlapped: {
       actions: {
-        enter: chest => {
+        enter: (chest) => {
           events.emit("chest:overlapped:true", chest);
           chestOverlapState.transition("overlapped");
-        }
-      }
-    }
+        },
+      },
+    },
   },
   "notOverlapped"
 );
@@ -130,7 +131,7 @@ ReactDOM.render(
 function preload() {
   this.load.spritesheet("sprites", spritesheet, {
     frameWidth: 80,
-    frameHeight: 110
+    frameHeight: 110,
   });
   this.load.image("elfHit", elfHit);
   this.load.image("elfIdle1", elfIdle1);
@@ -161,7 +162,7 @@ function create() {
   this.anims.create({
     key: "chestOpen",
     frames: [{ key: "chestEmpty2" }, { key: "chestEmpty3" }],
-    frameRate: 7
+    frameRate: 7,
   });
 
   this.anims.create({
@@ -169,9 +170,9 @@ function create() {
     frames: [
       { key: "fountainTop1" },
       { key: "fountainTop2" },
-      { key: "fountainTop3" }
+      { key: "fountainTop3" },
     ],
-    frameRate: 8
+    frameRate: 8,
   });
 
   this.anims.create({
@@ -179,13 +180,13 @@ function create() {
     frames: [
       { key: "fountainBottom1" },
       { key: "fountainBottom2" },
-      { key: "fountainBottom3" }
+      { key: "fountainBottom3" },
     ],
-    frameRate: 8
+    frameRate: 8,
   });
 
-  const chestLayer = map.layers.find(layer => layer.name === "objects");
-  chestLayer.objects.forEach(object => {
+  const chestLayer = map.layers.find((layer) => layer.name === "objects");
+  chestLayer.objects.forEach((object) => {
     switch (object.type) {
       case "chest":
         chests.push(createChest(this, object, chestOverlapState));
@@ -204,7 +205,7 @@ function create() {
   });
 
   colliders = this.physics.add.group();
-  const collisionLayer = map.layers.find(layer => layer.name === "collision");
+  const collisionLayer = map.layers.find((layer) => layer.name === "collision");
   collisionLayer.data.forEach((id, index) => {
     if (id !== 0) {
       const row = index % 30;
@@ -233,9 +234,9 @@ function create() {
       { key: "elfRun1" },
       { key: "elfRun2" },
       { key: "elfRun3" },
-      { key: "elfRun4" }
+      { key: "elfRun4" },
     ],
-    frameRate: 8
+    frameRate: 8,
   });
 
   this.anims.create({
@@ -244,15 +245,15 @@ function create() {
       { key: "elfIdle1" },
       { key: "elfIdle2" },
       { key: "elfIdle3" },
-      { key: "elfIdle4" }
+      { key: "elfIdle4" },
     ],
-    frameRate: 8
+    frameRate: 8,
   });
 
   cursors = new Cursors(this);
 
   interactKey = this.input.keyboard.addKey("space");
-  interactKey.on("down", event => {
+  interactKey.on("down", (event) => {
     const isHeartOverlapped = this.physics.overlap(player, heart);
 
     if (
@@ -263,7 +264,7 @@ function create() {
       return;
     }
 
-    const overlappedChest = chests.find(chest =>
+    const overlappedChest = chests.find((chest) =>
       this.physics.overlap(player, chest)
     );
 
@@ -276,13 +277,15 @@ function create() {
       overlappedChest.opened.action("open");
     }
   });
+
+  this.scale.startFullscreen();
 }
 
 const RUN_SPEED = 150;
 function update() {
   player.setVelocity(0);
 
-  chests.forEach(chest => {
+  chests.forEach((chest) => {
     if (this.physics.overlap(player, chest)) {
       chest.fsm.action("enter");
     } else {
